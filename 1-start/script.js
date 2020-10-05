@@ -1,0 +1,1 @@
+console.log('Girl from external script x');
