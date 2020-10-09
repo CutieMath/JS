@@ -444,7 +444,7 @@ function calc_tip(array){
             } else if(array[i] >= 50 && array[i] <= 200) {
                 percentage = 0.15;
             } else {
-                percentage = 0.10;
+                percentage = 0.10; 
             }
             tips.push(array[i] * percentage);
             finalBills.push(array[i] + array[i] * percentage);
