@@ -200,21 +200,24 @@
 
  var first = 124;
  var second = 48;
- var last = 168;
+ var last = 268;
 
  var tip = [];
  var results = [];
 
  function calcTip(bill) {   
     var percentage;
-    if (bill < 50){
-        percentage = 0.2;
-    } else if ( 50 <= bill <= 200) {
-        percentage = 0.15;
-    } else {
-        percentage = 0.1;
+    if (bill != null && bill != 0 && bill > 0){
+        if (bill < 50){
+            percentage = 0.2;
+        } else if (  bill >= 50 && bill <= 200) {
+            percentage = 0.15;
+        } else {
+            percentage = 0.1;
+        }
+        return percentage * bill;
     }
-    return percentage * bill;
+    return 0;
  }
 
 tip.push(calcTip(first), calcTip(second), calcTip(last));
