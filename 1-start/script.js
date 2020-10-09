@@ -226,10 +226,47 @@
 // console.log(results);
 
 
+// /*
+//  *  9th Oct
+//  *  Objects and properties
+//  */
+
+//  var baby = {
+//      firstName: "BB",
+//      lastName: "YE",
+//      birthYear: 1997,
+//      family: ["cutie", "major"],
+//      occupation: "baby",
+//      isMarried: false
+//  };
+
+//  // retrieve data
+//  console.log(baby);
+//  console.log(baby.occupation);
+//  var x = "isMarried";
+//  console.log(baby[x]);
+
+//  // mutate data
+//  baby.firstName = "BABY";
+//  console.log(baby);
+
+//  // new object syntax
+//  var cutie = new Object();
+//  cutie.firstName = "CUTIE";
+//  cutie.lastName = "DODO";
+//  cutie["birthYear"] = 1995;
+//  cutie.family = ["major", "BB"];
+//  cutie.occupation = "Agent";
+//  // doesn't have to include all variables in constructor
+ 
+//  console.log(cutie);
+
+
 /*
- *  9th Oct
- *  Objects and properties
+ *  Objects and methods
  */
+
+var currentYear = new Date().getFullYear();
 
  var baby = {
      firstName: "BB",
@@ -237,26 +274,17 @@
      birthYear: 1997,
      family: ["cutie", "major"],
      occupation: "baby",
-     isMarried: false
+     isMarried: false,
+     calcAge: function() {
+        return currentYear - this.birthYear;
+     }
  };
 
- // retrieve data
- console.log(baby);
- console.log(baby.occupation);
- var x = "isMarried";
- console.log(baby[x]);
+ console.log(currentYear);
+ console.log(baby.calcAge());
 
- // mutate data
- baby.firstName = "BABY";
+ //Setter
+ baby.age = baby.calcAge();
  console.log(baby);
 
- // new object syntax
- var cutie = new Object();
- cutie.firstName = "CUTIE";
- cutie.lastName = "DODO";
- cutie["birthYear"] = 1995;
- cutie.family = ["major", "BB"];
- cutie.occupation = "Agent";
- // doesn't have to include all variables in constructor
- 
- console.log(cutie);
+ //we can also use this.age = currentYear - this.birthYear in the object 
