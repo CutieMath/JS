@@ -319,61 +319,100 @@
 // console.log("Mimi's BMI is " + mimi.BMI);
 
 
+// /*
+//  *  Loops !!!
+//  */
+
+// // get clear with count
+// var x = 1;
+// var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+// console.log("Count i");
+// for (var i = 0; i < array.length; i ++) {
+//     console.log(i);
+// }
+
+// console.log("Count elements");
+// for (var i = 0; i < array.length; i ++){
+//     console.log(x);
+//     x ++;
+// }
+
+// // access arrays
+// var array = ["okie", "cutie", "baby", "violet", "me"];
+// for(var i = 0; i < array.length; i ++){
+//     console.log(array[i]);
+// }
+
+// // while loop 
+// var i = 0;
+// while (i < array.length) {
+//     console.log(array[i]);
+//     i ++;
+// }
+
+// // continue and break
+// var array = ["okie", "cutie", 520, "baby", "violet", "me", 222];
+// console.log("_________continue__________");
+// for(var i = 0; i < array.length; i ++){
+//     if (typeof array[i] !== "string") {
+//         continue;
+//     }
+//     console.log(array[i]);
+// }
+// console.log(typeof array[0]);
+
+// console.log("___________break___________");
+// for(var i = 0; i < array.length; i ++){
+//     if (typeof array[i] !== "string") {
+//         break;
+//     }
+//     console.log(array[i]);
+// }
+
+// // loop the array backwards
+// console.log("_______loop backwards________");
+// for(var i = array.length-1; i >= 0; i --) {
+//     console.log(array[i]);
+// }
+
+
 /*
- *  Loops !!!
+ *  Coding challange
  */
 
-// get clear with count
-var x = 1;
-var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+var r_one = 124;
+var r_two = 48;
+var r_three = 268; 
+var r_four = 180; 
+var r_five = 42;
 
-console.log("Count i");
-for (var i = 0; i < array.length; i ++) {
-    console.log(i);
-}
-
-console.log("Count elements");
-for (var i = 0; i < array.length; i ++){
-    console.log(x);
-    x ++;
-}
-
-// access arrays
-var array = ["okie", "cutie", "baby", "violet", "me"];
-for(var i = 0; i < array.length; i ++){
-    console.log(array[i]);
-}
-
-// while loop 
-var i = 0;
-while (i < array.length) {
-    console.log(array[i]);
-    i ++;
-}
-
-// continue and break
-var array = ["okie", "cutie", 520, "baby", "violet", "me", 222];
-console.log("_________continue__________");
-for(var i = 0; i < array.length; i ++){
-    if (typeof array[i] !== "string") {
-        continue;
+var babyBills = {
+    bills: [r_one, r_two, r_three, r_four, r_five],
+    calc_tip: function(){
+        this.tips = [];
+        this.finalBills = [];
+        for(var i = 0; i < this.bills.length; i ++) {
+            console.log(this.bills[i]);
+            if(this.bills[i] != 0 && this.bills[i]!= null && this.bills[i] > 0) {
+                var percentage = 0;
+                if(this.bills[i] < 50) {
+                    percentage = 0.20;
+                } else if(this.bills[i] >= 50 && this.bills[i] <= 200) {
+                    percentage = 0.15;
+                } else {
+                    percentage = 0.10;
+                }
+                this.tips.push(this.bills[i] * percentage);
+                this.finalBills.push(this.bills[i] + this.bills[i] * percentage);
+            } else {
+                // if bill is 0, null or less than 0
+                this.tips.push(0);
+                this.finalBills.push(0);
+            }
+        }
     }
-    console.log(array[i]);
 }
-console.log(typeof array[0]);
-
-console.log("___________break___________");
-for(var i = 0; i < array.length; i ++){
-    if (typeof array[i] !== "string") {
-        break;
-    }
-    console.log(array[i]);
-}
-
-// loop the array backwards
-console.log("_______loop backwards________");
-for(var i = array.length-1; i >= 0; i --) {
-    console.log(array[i]);
-}
-
-
+babyBills.calc_tip();
+console.log("Tips are " + babyBills.tips);
+console.log("Final bills are " + babyBills.finalBills);
