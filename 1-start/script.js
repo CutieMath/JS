@@ -262,29 +262,63 @@
 //  console.log(cutie);
 
 
+// /*
+//  *  Objects and methods
+//  */
+
+// var currentYear = new Date().getFullYear();
+
+//  var baby = {
+//      firstName: "BB",
+//      lastName: "YE",
+//      birthYear: 1997,
+//      family: ["cutie", "major"],
+//      occupation: "baby",
+//      isMarried: false,
+//      calcAge: function() {
+//         return currentYear - this.birthYear;
+//      }
+//  };
+
+//  console.log(currentYear);
+//  console.log(baby.calcAge());
+
+//  //Setter
+//  baby.age = baby.calcAge();
+//  console.log(baby);
+
+//  //we can also use this.age = currentYear - this.birthYear in the object 
+
+
+ 
 /*
- *  Objects and methods
+ *  Coding challange
  */
+var baby = {
+    firstName: "baby",
+    lastName: "yx",
+    mass: 43,
+    height: 1.60,
+    calcBMI: function(){
+        this.BMI = this.mass / Math.pow(this.height, 2);
+    }
+}
 
-var currentYear = new Date().getFullYear();
+baby.calcBMI();
+console.log("Baby's BMI is " + baby.BMI); 
 
- var baby = {
-     firstName: "BB",
-     lastName: "YE",
-     birthYear: 1997,
-     family: ["cutie", "major"],
-     occupation: "baby",
-     isMarried: false,
-     calcAge: function() {
-        return currentYear - this.birthYear;
-     }
- };
 
- console.log(currentYear);
- console.log(baby.calcAge());
+var mimi = new Object();
+mimi.firstName = "Mimi";
+mimi.mass = 73;
+mimi.height = 1.72;
+mimi.calcBMI = function(){
+    this.BMI = this.mass / Math.pow(this.height, 2);
+};
+mimi.calcBMI();
+console.log("Mimi's BMI is " + mimi.BMI);
 
- //Setter
- baby.age = baby.calcAge();
- console.log(baby);
 
- //we can also use this.age = currentYear - this.birthYear in the object 
+/*
+ *  Loops !!!
+ */
