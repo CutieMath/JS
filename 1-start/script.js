@@ -381,6 +381,9 @@
  *  Coding challange
  */
 
+
+// Baby
+console.log("____________Baby's bill__________")
 var r_one = 124;
 var r_two = 48;
 var r_three = 268; 
@@ -406,7 +409,7 @@ var babyBills = {
                 this.tips.push(this.bills[i] * percentage);
                 this.finalBills.push(this.bills[i] + this.bills[i] * percentage);
             } else {
-                // if bill is 0, null or less than 0
+                // if the bill is 0, null or less than 0
                 this.tips.push(0);
                 this.finalBills.push(0);
             }
@@ -416,3 +419,63 @@ var babyBills = {
 babyBills.calc_tip();
 console.log("Tips are " + babyBills.tips);
 console.log("Final bills are " + babyBills.finalBills);
+
+
+// Major
+console.log("____________Major's bill__________")
+var m_one = 77;
+var m_two = 375;
+var m_three = 110; 
+var m_four = 45; 
+var tips = [];
+var finalBills = [];
+
+var majorBills = {
+    bills: [m_one, m_two, m_three, m_four],
+}
+
+function calc_tip(array){
+    for(var i = 0; i < array.length; i ++) {
+        console.log(array[i]);
+        if(array[i] != 0 && array[i]!= null && array[i] > 0) {
+            var percentage = 0;
+            if(array[i] < 50) {
+                percentage = 0.20;
+            } else if(array[i] >= 50 && array[i] <= 200) {
+                percentage = 0.15;
+            } else {
+                percentage = 0.10;
+            }
+            tips.push(array[i] * percentage);
+            finalBills.push(array[i] + array[i] * percentage);
+        } else {
+            // if the bill is 0, null or less than 0
+            tips.push(0);
+            finalBills.push(0);
+        }
+    }
+}
+
+calc_tip(majorBills.bills);
+console.log("Major's tips are: " + tips);
+console.log("Major's bills are: " + finalBills);
+
+
+// Average and results
+console.log("____________Results__________")
+var babyAve = calcAve(babyBills.bills);
+var majorAve = calcAve(majorBills.bills);
+
+function calcAve(array){
+    var sum = 0;
+    for(var i = 0; i < array.length; i ++) {
+        sum += array[i];
+    }
+    return sum / array.length;
+}
+
+if(babyAve > majorAve) {
+    console.log("Baby paid more, at " + babyAve);
+} else {
+    console.log("Major paid more on average, at " + majorAve + ". Baby's bill was: " + babyAve);
+}
