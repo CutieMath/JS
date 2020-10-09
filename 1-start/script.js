@@ -98,50 +98,127 @@
 
 // NOTE: the 0 is a falsy value. Check it in everything
 
-var height;
-height = 0;
+// var height;
+// height = 0;
 
-if (height || height === 0) {
-    console.log("variable is defined");
-} else {
-    console.log("variable is not defined");
-}
+// if (height || height === 0) {
+//     console.log("variable is defined");
+// } else {
+//     console.log("variable is not defined");
+// }
 
-// the difference between == and === 
-height = 23;
+// // the difference between == and === 
+// height = 23;
 
-if (height === '23') {
-    console.log("The == doesn't care about type!");
-} else {
-    console.log("The === showes the type is not the same");
-}
+// if (height === '23') {
+//     console.log("The == doesn't care about type!");
+// } else {
+//     console.log("The === showes the type is not the same");
+// }
+
+
+/*
+ *  Coding Challange 2
+ */
+
+// var baby_1 = 89;
+// var baby_2 = 120;
+// var baby_3 = 1030;
+
+// var cutie_1 = 116;
+// var cutie_2 = 94;
+// var cutie_3 = 123;
+
+// var okie_1 = 97;
+// var okie_2 = 134;
+// var okie_3 = 105;
+
+// var babyAve = (baby_1 + baby_2 + baby_3) / 3;
+// var cutieAve = (cutie_1 + cutie_2 + cutie_3) / 3;
+// var okieAve = (okie_1 + okie_2 + okie_3) / 3;
+
+
+// if (babyAve > cutieAve) {
+//     console.log("Baby got it! With " + babyAve);
+// } else if (cutieAve > babyAve) {
+//     console.log("Cutie got it! With " + cutieAve);
+// } else {
+//     console.log("Both Cutie and Baby got it xx At " + babyAve);
+// }
+
+
+/*
+ *  Function statements and expressions
+ */
+
+// function declaration
+// function occupation(job, firstName){}
+
+// function expression: return a value
+// var occupation = function(job, firstName) {
+//     switch(job) {
+//         case 'Secret Agent':
+//             return firstName + ' is an agent.';
+//         case 'High-end cutie':
+//             return firstName + ' is extremely beautiful';
+//         case 'Intellegent Agent':
+//             return firstName + ' is very skilled';
+//         default:
+//             return firstName + ' does something else';
+//     }
+// }
+
+// console.log(occupation('Secret Agent', 'Baby'));
+
+
+/*
+ *  Arrays
+ */
+
+//  var names = ['Baby', 'Cutie', 'Sexc'];
+//  var occupation = new Array('Agency', 'Escort', 'Intellegent');
+
+//  console.log(names);
+//  console.log(names.length);
+
+//  // remove from the last
+//  occupation.pop();
+//  console.log(occupation);
+
+//  // remove from the first
+//  occupation.shift();
+//  console.log(occupation);
+
+//   // Add to beginning
+//   occupation.unshift('CEO');
+//   console.log(occupation);
 
 
 /*
  *  Coding Challange
  */
 
-var baby_1 = 89;
-var baby_2 = 120;
-var baby_3 = 1030;
+ var first = 124;
+ var second = 48;
+ var last = 168;
 
-var cutie_1 = 116;
-var cutie_2 = 94;
-var cutie_3 = 123;
+ var tip = [];
+ var results = [];
 
-var okie_1 = 97;
-var okie_2 = 134;
-var okie_3 = 105;
+ function calcTip(bill) {   
+    var percentage;
+    if (bill < 50){
+        percentage = 0.2;
+    } else if ( 50 <= bill <= 200) {
+        percentage = 0.15;
+    } else {
+        percentage = 0.1;
+    }
+    return percentage * bill;
+ }
 
-var babyAve = (baby_1 + baby_2 + baby_3) / 3;
-var cutieAve = (cutie_1 + cutie_2 + cutie_3) / 3;
-var okieAve = (okie_1 + okie_2 + okie_3) / 3;
+tip.push(calcTip(first), calcTip(second), calcTip(last));
+results.push(tip[0] + first, tip[1] + second, tip[2] + last)
+console.log(tip);
+console.log(results);
 
-
-if (babyAve > cutieAve) {
-    console.log("Baby got it! With " + babyAve);
-} else if (cutieAve > babyAve) {
-    console.log("Cutie got it! With " + cutieAve);
-} else {
-    console.log("Both Cutie and Baby got it xx At " + babyAve);
-}
