@@ -291,34 +291,89 @@
 
 
  
-/*
- *  Coding challange
- */
-var baby = {
-    firstName: "baby",
-    lastName: "yx",
-    mass: 43,
-    height: 1.60,
-    calcBMI: function(){
-        this.BMI = this.mass / Math.pow(this.height, 2);
-    }
-}
+// /*
+//  *  Coding challange
+//  */
+// var baby = {
+//     firstName: "baby",
+//     lastName: "yx",
+//     mass: 43,
+//     height: 1.60,
+//     calcBMI: function(){
+//         this.BMI = this.mass / Math.pow(this.height, 2);
+//     }
+// }
 
-baby.calcBMI();
-console.log("Baby's BMI is " + baby.BMI); 
+// baby.calcBMI();
+// console.log("Baby's BMI is " + baby.BMI); 
 
 
-var mimi = new Object();
-mimi.firstName = "Mimi";
-mimi.mass = 73;
-mimi.height = 1.72;
-mimi.calcBMI = function(){
-    this.BMI = this.mass / Math.pow(this.height, 2);
-};
-mimi.calcBMI();
-console.log("Mimi's BMI is " + mimi.BMI);
+// var mimi = new Object();
+// mimi.firstName = "Mimi";
+// mimi.mass = 73;
+// mimi.height = 1.72;
+// mimi.calcBMI = function(){
+//     this.BMI = this.mass / Math.pow(this.height, 2);
+// };
+// mimi.calcBMI();
+// console.log("Mimi's BMI is " + mimi.BMI);
 
 
 /*
  *  Loops !!!
  */
+
+// get clear with count
+var x = 1;
+var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+console.log("Count i");
+for (var i = 0; i < array.length; i ++) {
+    console.log(i);
+}
+
+console.log("Count elements");
+for (var i = 0; i < array.length; i ++){
+    console.log(x);
+    x ++;
+}
+
+// access arrays
+var array = ["okie", "cutie", "baby", "violet", "me"];
+for(var i = 0; i < array.length; i ++){
+    console.log(array[i]);
+}
+
+// while loop 
+var i = 0;
+while (i < array.length) {
+    console.log(array[i]);
+    i ++;
+}
+
+// continue and break
+var array = ["okie", "cutie", 520, "baby", "violet", "me", 222];
+console.log("_________continue__________");
+for(var i = 0; i < array.length; i ++){
+    if (typeof array[i] !== "string") {
+        continue;
+    }
+    console.log(array[i]);
+}
+console.log(typeof array[0]);
+
+console.log("___________break___________");
+for(var i = 0; i < array.length; i ++){
+    if (typeof array[i] !== "string") {
+        break;
+    }
+    console.log(array[i]);
+}
+
+// loop the array backwards
+console.log("_______loop backwards________");
+for(var i = array.length-1; i >= 0; i --) {
+    console.log(array[i]);
+}
+
+
