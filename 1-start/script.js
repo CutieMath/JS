@@ -401,7 +401,7 @@ var babyBills = {
                 var percentage = 0;
                 if(this.bills[i] < 50) {
                     percentage = 0.20;
-                } else if(this.bills[i] >= 50 && this.bills[i] <= 200) {
+                } else if(this.bills[i] >= 50 && this.bills[i] < 200) {
                     percentage = 0.15;
                 } else {
                     percentage = 0.10;
@@ -439,12 +439,12 @@ function calc_tip(array){
         console.log(array[i]);
         if(array[i] != 0 && array[i]!= null && array[i] > 0) {
             var percentage = 0;
-            if(array[i] < 50) {
+            if(array[i] < 100) {
                 percentage = 0.20;
-            } else if(array[i] >= 50 && array[i] <= 200) {
-                percentage = 0.15;
+            } else if(array[i] >= 100 && array[i] < 300) {
+                percentage = 0.10;
             } else {
-                percentage = 0.10; 
+                percentage = 0.25; 
             }
             tips.push(array[i] * percentage);
             finalBills.push(array[i] + array[i] * percentage);
