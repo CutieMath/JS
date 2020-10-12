@@ -21,23 +21,58 @@
 // retire(1997);
 
 
-// 2. Variables
-console.log(age);
-var age = 23;
-console.log(age);
+// // 2. Variables
+// console.log(age);
+// var age = 23;
+// console.log(age);
 
-function foo(){
-    var age = 50; 
-    // variable object
-    console.log(age);
-}
+// function foo(){
+//     var age = 50; 
+//     // variable object
+//     console.log(age);
+// }
 
-foo();
-// global object
-console.log(age);
+// foo();
+// // global object
+// console.log(age);
 
 
 
 /* **********
  *  Scoping
  ************/
+
+// 1
+var a = "baby! ";
+first();
+
+function first(){
+    var b = "baby b! ";
+    second();
+
+    function second(){
+        var c = "baby c! ";
+        console.log(a + b + c);
+    }
+}
+
+// 2 
+var a = "Baby a! ";
+first();
+
+function first(){
+    var b = "Baby B! ";
+    second();
+
+    function second(){
+        var c = "Baby C!";
+        third();
+    }
+}
+
+// this will show the c is not defined, because it's not global
+// same to b
+function third(){
+    var d = "Baby d!";
+    console.log(c);
+}
