@@ -20,9 +20,15 @@ var scores, roundScore, activePlayer, dice;
 
 scores = [0, 0];
 roundScore = 0;
-activePlayer = 0;
+activePlayer = 1;
 
 // select the number we want to change
 diceValue = Math.floor(Math.random() * 6) + 1;
-document.querySelector('#current-' + activePlayer).textContent = diceValue;
+// document.querySelector('#current-' + activePlayer).textContent = diceValue;
+document.querySelector('#current-' + activePlayer).innerHTML = "<Strong>" + diceValue + "</Strong>";
 
+var x = document.querySelector('#score-0').textContent;
+console.log(x);
+
+// change css property
+document.querySelector('.dice').style.display = 'none';
