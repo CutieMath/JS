@@ -21,7 +21,7 @@ ADDED RULES for coding challange:
 ********************************************************************/
 
 // start from the most important variables
-var scores, roundScore, activePlayer, dice, gamePlaying;
+var scores, roundScore, activePlayer, dice, gamePlaying, diceValueArray;
 
 init();
 
@@ -29,18 +29,28 @@ init();
 // Roll button
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying) {
-        diceValue = Math.floor(Math.random() * 6) + 1;
+        const allValues = [5, 2, 6];
+        const index = Math.floor(Math.random() * allValues.length);
+        const diceValue = allValues[index];
+        console.log(diceValue);
         var diceDOM = document.querySelector('.dice');
         diceDOM.style.display = 'block';
         diceDOM.src = 'dice-' + diceValue + '.png';
 
-        // update the round score if the diceValue was not 1
+        // if player rolled 1, lost all scores
         if(diceValue !== 1) {
             roundScore += diceValue;
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
+            // add into dice value array to check two 6
+            diceValueArray.push(diceValue);
+            if ( diceValueArray.length !== 1 && diceValue === 6 && diceValueArray[diceValueArray.length-2] === 6 ){
+                nextPlayer();
+            }
         } else {
             nextPlayer();
         }
+
+
     }
 });
 
@@ -76,6 +86,7 @@ document.querySelector('.btn-new').addEventListener('click', init);
 function nextPlayer(){
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
+    diceValueArray = [];
     // update UI
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
@@ -88,6 +99,7 @@ function init(){
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true; // state variable 
+    diceValueArray = [];
     document.querySelector('.dice').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
