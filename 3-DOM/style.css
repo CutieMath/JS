@@ -80,7 +80,7 @@ body {
     position: absolute;
     color: #e5989b;
     top: -45px;
-    right: 10px;
+    /* right: 5px; */
     
 }
 
@@ -153,5 +153,6 @@ i {
     border-radius: 25px;
 }
 
-.winner { background-color: #f7f7f7; }
-.winner .player-name { font-weight: 300; color: #ffafcc; }
+.winner { background-color: #f4acb7; }
+.winner .player-name { font-weight: 400; color: #fff; }
+.winner .player-score { font-weight: 400; color: #fff; }
