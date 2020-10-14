@@ -13,6 +13,11 @@ GAME RULES:
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 20 points on GLOBAL score wins the game
+
+ADDED RULES for coding challange:
+1. A player looses ENTIRE score when they rolls two 6 in a roll
+2. Add an input field to the HTML where user can set the winning score
+3. Add another dice to the game. The player looses ENTIRE score when one of them is 1 or two 6 in a roll
 ********************************************************************/
 
 // start from the most important variables
