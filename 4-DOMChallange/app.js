@@ -16,7 +16,7 @@ GAME RULES:
 
 ADDED RULES for coding challange:
 1. A player looses Round score when they rolls two 6 in a roll
-2. Add an input field to the HTML where user can set the winning score
+2. Add an input field to the HTML where user can set the winning score. Or the game will use 100 as default
 3. Add another dice to the game. 
     - The player looses Round score when roll two 6 on the first dice. Then next player's turn.
     - They player looses Round score when roll a 1. Then next player's turn.
@@ -65,7 +65,14 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 document.querySelector('.btn-hold').addEventListener('click', function(){
     if(gamePlaying){
         // get the user input to determine winning score
-        winningScore = document.getElementById('win_score').value;
+        var input = document.getElementById('win_score').value;
+        var winningScore;
+        // Remember: Undefined, 0, null or "" are coerced to false
+        if(input){
+            winningScore = input;
+        } else {
+            winningScore = 100;
+        }
         // make a global array to store scores for each player
         scores[activePlayer] += roundScore;
         // update UI
@@ -94,7 +101,7 @@ document.querySelector('.btn-new').addEventListener('click', init);
 function nextPlayer(){
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
-    lastDice = 0;
+    lastDice = -1;
     // update UI
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
