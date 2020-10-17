@@ -29,6 +29,7 @@ init();
 // Roll button
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying) {
+        // use array for easier testing purpose
         const allValues = [5, 2, 6];
         const index = Math.floor(Math.random() * allValues.length);
         const diceValue = allValues[index];
@@ -58,12 +59,15 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 // Hold button
 document.querySelector('.btn-hold').addEventListener('click', function(){
     if(gamePlaying){
+        // get the user input to determine winning score
+        winningScore = document.getElementById('win_score').value;
+
         // make a global array to store scores for each player
         scores[activePlayer] += roundScore;
         // update UI
         document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
         
-        if(scores[activePlayer] >= 20){
+        if(scores[activePlayer] >= winningScore){
             document.getElementById('name-' + activePlayer).innerHTML = "WON(｡◕‿◕｡) "
             document.querySelector('.dice').style.display = 'none';
             // apply css winner class
@@ -99,7 +103,7 @@ function init(){
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true; // state variable 
-    diceValueArray = [];
+    diceValueArray = []; // if two 6 in a role, next player 
     document.querySelector('.dice').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
