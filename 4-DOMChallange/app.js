@@ -21,7 +21,7 @@ ADDED RULES for coding challange:
 ********************************************************************/
 
 // start from the most important variables
-var scores, roundScore, activePlayer, dice, gamePlaying, diceValueArray;
+var scores, roundScore, activePlayer, dice1, dice2, gamePlaying, diceValueArray;
 
 init();
 
@@ -30,28 +30,30 @@ init();
 document.querySelector('.btn-roll').addEventListener('click', function(){
     if(gamePlaying) {
         // use array for easier testing purpose
-        const allValues = [5, 2, 6];
-        const index = Math.floor(Math.random() * allValues.length);
-        const diceValue = allValues[index];
-        console.log(diceValue);
-        var diceDOM = document.querySelector('.dice');
-        diceDOM.style.display = 'block';
-        diceDOM.src = 'dice-' + diceValue + '.png';
+        const allValues = [1, 2, 3, 4, 5, 6];
+        const index1 = Math.floor(Math.random() * allValues.length);
+        const index2 = Math.floor(Math.random() * allValues.length)
+        const dice1Value = allValues[index1];
+        const dice2Value = allValues[index2];
+        var diceDOM1 = document.querySelector('.dice1');
+        var diceDOM2 = document.querySelector('.dice2');
+        diceDOM1.style.display = 'block';
+        diceDOM2.style.display = 'block';
+        diceDOM1.src = 'dice-' + dice1Value + '.png';
+        diceDOM2.src = 'dice-' + dice2Value + '.png';
 
         // if player rolled 1, lost all scores
-        if(diceValue !== 1) {
-            roundScore += diceValue;
+        if(dice1Value !== 1 && dice2Value !== 1) {
+            roundScore += (dice1Value + dice2Value);
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
             // add into dice value array to check two 6
-            diceValueArray.push(diceValue);
-            if ( diceValueArray.length !== 1 && diceValue === 6 && diceValueArray[diceValueArray.length-2] === 6 ){
+            diceValueArray.push(dice1Value);
+            if ( diceValueArray.length !== 1 && dice1Value === 6 && diceValueArray[diceValueArray.length-2] === 6 ){
                 nextPlayer();
             }
         } else {
             nextPlayer();
         }
-
-
     }
 });
 
@@ -69,7 +71,8 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         
         if(scores[activePlayer] >= winningScore){
             document.getElementById('name-' + activePlayer).innerHTML = "WON(｡◕‿◕｡) "
-            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.dice1').style.display = 'none';
+            document.querySelector('.dice2').style.display = 'none';
             // apply css winner class
             document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
@@ -80,7 +83,6 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         }
     }
 });
-
 
 // New game button
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -104,7 +106,8 @@ function init(){
     activePlayer = 0;
     gamePlaying = true; // state variable 
     diceValueArray = []; // if two 6 in a role, next player 
-    document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.dice1').style.display = 'none';
+    document.querySelector('.dice2').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
     document.getElementById('score-1').textContent = '0';
     document.getElementById('current-0').textContent = '0';
