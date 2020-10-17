@@ -15,16 +15,19 @@ GAME RULES:
 - The first player to reach 20 points on GLOBAL score wins the game
 
 ADDED RULES for coding challange:
-1. A player looses ENTIRE score when they rolls two 6 in a roll
+1. A player looses Round score when they rolls two 6 in a roll
 2. Add an input field to the HTML where user can set the winning score
-3. Add another dice to the game. The player looses ENTIRE score when one of them is 1 or two 6 in a roll
+3. Add another dice to the game. 
+    - The player looses Round score when roll two 6 on the first dice. Then next player's turn.
+    - They player looses Round score when roll a 1. Then next player's turn.
 ********************************************************************/
 
 // start from the most important variables
-var scores, roundScore, activePlayer, dice1, dice2, gamePlaying, diceValueArray;
+var scores, roundScore, activePlayer, dice1, dice2, gamePlaying;
 
 init();
-
+// to check last dice
+var lastDice;
 
 // Roll button
 document.querySelector('.btn-roll').addEventListener('click', function(){
@@ -41,16 +44,16 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
         diceDOM2.style.display = 'block';
         diceDOM1.src = 'dice-' + dice1Value + '.png';
         diceDOM2.src = 'dice-' + dice2Value + '.png';
-
-        // if player rolled 1, lost all scores
-        if(dice1Value !== 1 && dice2Value !== 1) {
+        // if player rolled two 6 in a row, lost all scores
+        if(dice1Value === 6 && lastDice === 6){
+            scores[activePlayer] = 0;
+            document.getElementById('score-' + activePlayer).textContent = '0';
+            nextPlayer();
+        }// if player rolled 1, lost all scores and next player
+         else if(dice1Value !== 1 && dice2Value !== 1) {
             roundScore += (dice1Value + dice2Value);
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
-            // add into dice value array to check two 6
-            diceValueArray.push(dice1Value);
-            if ( diceValueArray.length !== 1 && dice1Value === 6 && diceValueArray[diceValueArray.length-2] === 6 ){
-                nextPlayer();
-            }
+            lastDice = dice1Value;
         } else {
             nextPlayer();
         }
@@ -63,7 +66,6 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     if(gamePlaying){
         // get the user input to determine winning score
         winningScore = document.getElementById('win_score').value;
-
         // make a global array to store scores for each player
         scores[activePlayer] += roundScore;
         // update UI
@@ -92,7 +94,7 @@ document.querySelector('.btn-new').addEventListener('click', init);
 function nextPlayer(){
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     roundScore = 0;
-    diceValueArray = [];
+    lastDice = 0;
     // update UI
     document.getElementById('current-0').textContent = '0';
     document.getElementById('current-1').textContent = '0';
@@ -105,7 +107,6 @@ function init(){
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true; // state variable 
-    diceValueArray = []; // if two 6 in a role, next player 
     document.querySelector('.dice1').style.display = 'none';
     document.querySelector('.dice2').style.display = 'none';
     document.getElementById('score-0').textContent = '0';
