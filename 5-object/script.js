@@ -19,8 +19,15 @@ var Person = function (name, yearOfBirth, occupation) {
     }
 }
 
+// add functions
+Person.prototype.printOccupation = function(){
+    console.log(this.occupation);
+}
+
+
 var cutie = new Person('Cutie', 1997, 'Agent X');
 cutie.calcAge();
 
 var major = new Person('Major', 1980, 'Major');
 major.calcAge();
+major.printOccupation();
