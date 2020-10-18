@@ -76,9 +76,9 @@ var obj1 = {
     age: 29
 };
 var obj2 = obj1;   // copy of reference
-obj1.age = 30;     // copy of value
-console.log(obj2); // copy of reference not changed
-console.log(obj1); // copy of value changed
+obj1.age = 30;     
+console.log(obj2); // copy of reference changed
+console.log(obj1); 
 
 // Functions
 var age = 29; 
@@ -88,12 +88,15 @@ var obj = {
 };
 
 function change(a, b){
-    a = 30; // not reflect outside the function
-    b.city = 'London'; // reflect outside the function
+    a = 30; // copy of a new object
+    b.city = 'London'; // copy of the reference 
 }
 
 change(age, obj);  
-console.log(age);  
-console.log(obj.city); 
+console.log(age);  // object not changed
+console.log(obj.city); // reference changed
 
+// Summary
+// when use a = object: a copy of reference is created, no new object
+// when use a = primitive: a copy of new object is created
 
