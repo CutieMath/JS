@@ -199,47 +199,119 @@
 
 
 
+// // *************************
+// // Closures
+// // ************************************
+
+// function calcMoney(retirementAge){
+//     var a = ' years left until retirement.';
+//     var b = ' dollars in investment.';
+//     // the inner function can still use a, b, and retirementAge
+//     // even after the outer function is returned
+//     // Becasue the variable objects are still in the memory!!!
+//     return function(yearOfBirth, investment){
+//         const annualRate = .1;
+//         const n = 1;
+//         const age = new Date().getFullYear() - yearOfBirth;
+//         const yearsLeft = retirementAge - age;
+//         var money = investment * (Math.pow((1+(annualRate / n)), (n * yearsLeft)));
+//         money = Math.floor(money);
+//         console.log(yearsLeft + a);
+//         console.log(money.toLocaleString() + b);
+//     }
+// }
+// //calcMoney(55)(1991, 1000000);
+// calcMoney(65)(1991, 1000000);
+
+
+// // ***************
+// // coding challange:
+// // JS closure for job questions
+
+// function question2(job){
+//     a = " is a baby.";
+//     b = " is super cool.";
+//     c = " is rich.";
+//     return function(name){
+//         if (job === "baby") { 
+//             console.log(name + a);
+//         } else if (job === "agent") {
+//             console.log(name + b);
+//         } else {
+//             console.log(name + c);
+//         }
+//     }
+// }
+// question2(undefined)("Cutie");
+
+
+
 // *************************
-// Closures
+// Call, apply and bind
 // ************************************
 
-function calcMoney(retirementAge){
-    var a = ' years left until retirement.';
-    var b = ' dollars in investment.';
-    // the inner function can still use a, b, and retirementAge
-    // even after the outer function is returned
-    // Becasue the variable objects are still in the memory!!!
-    return function(yearOfBirth, investment){
-        const annualRate = .1;
-        const n = 1;
-        const age = new Date().getFullYear() - yearOfBirth;
-        const yearsLeft = retirementAge - age;
-        var money = investment * (Math.pow((1+(annualRate / n)), (n * yearsLeft)));
-        money = Math.floor(money);
-        console.log(yearsLeft + a);
-        console.log(money.toLocaleString() + b);
-    }
-}
-//calcMoney(55)(1991, 1000000);
-calcMoney(65)(1991, 1000000);
-
-
-// ***************
-// coding challange:
-// JS closure for job questions
-
-function question2(job){
-    a = " is a baby.";
-    b = " is super cool.";
-    c = " is rich.";
-    return function(name){
-        if (job === "baby") { 
-            console.log(name + a);
-        } else if (job === "agent") {
-            console.log(name + b);
-        } else {
-            console.log(name + c);
+var baby = {
+    name: "Baby", 
+    age: 29,
+    occupation: "Agent",
+    presentation: function(style, timeOfDay) {
+        if(style === "formal") {
+            console.log("Good " + timeOfDay + ", I'm " + this.name + ". My occupation is " + this.occupation + ".");
+        } else if (style === 'friendly') {
+            console.log("yummy! It's " + timeOfDay + ", happy x" + " I'm " + this.name + "! My occupation is " + this.occupation + "!");
         }
     }
+};
+
+baby.presentation("formal", "evening");
+baby.presentation("friendly", "morning");
+
+// method borrowing
+// 1. call functon 
+var cutie = {
+    name: "Cutie", 
+    age: 30, 
+    occupation: "Secret service"
+};
+baby.presentation.call(cutie, "friendly", "evening");
+
+
+// 3. apply function (function expect array)
+// baby.presentation.apply(cutie, ["friendly", "evening"]);
+
+
+// 2. bind function 
+// generate a copy of the function
+// will always be the 'friendly' version as specifid!! 😍
+var babyCopy = baby.presentation.bind(baby, "friendly");
+babyCopy("afternoon");
+babyCopy("holiday");
+
+var babyCopyFormal = baby.presentation.bind(baby, "formal");
+babyCopyFormal("morning, sir");
+babyCopyFormal("morning, major");
+
+
+// one more example
+var years2 = [1990, 1999, 1966, 2005, 1999, 2015];
+function arrayCalc2(array, fn) {
+    var resultArr = [];
+    for(var i = 0; i < array.length; i ++){
+        resultArr.push(fn(array[i]));
+    }
+    return resultArr;
 }
-question2(undefined)("Cutie");
+function calcAge2(element){
+    return new Date().getFullYear() - element;
+}
+function isFullAge2(limit, element){
+    return element >= limit;
+}
+// get all ages
+var ages = arrayCalc2(years2, calcAge2);
+// use binding
+var fullJapan = arrayCalc2(ages, isFullAge2.bind(this, 18));
+console.log(ages);
+console.log(fullJapan);
+
+
