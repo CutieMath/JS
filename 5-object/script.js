@@ -4,6 +4,7 @@
 // ************************************
 
 
+
 // *************************
 // Object basics
 // ************************************
@@ -59,6 +60,7 @@
 // })
 
 
+
 // // *************************
 // // Objects and Primitives
 // // ************************************
@@ -99,6 +101,7 @@
 // // Summary
 // // when use a = object: a copy of reference is created, no new object
 // // when use a = primitive: a copy of new object is created
+
 
 
 // // *************************
@@ -146,31 +149,50 @@
 // console.log(maxHeartRate);
 
 
+// // *************************
+// // Functions returning functions
+// // ************************************
+
+// function question(job){
+//     if (job === "baby") {
+//         return function(name) {
+//             console.log(name + " is a baby.");
+//         }
+//     } else if (job === "agent") {
+//         return function(name) {
+//             console.log(name + " is super cool.");
+//         }
+//     } else {
+//         return function(name) {
+//             console.log(name + " is rich.");
+//         }
+//     }
+// }
+
+// // get the returning function and use it
+// var agentQuestion = question("baby");
+// agentQuestion("Cutie");
+
+// var otherQuestion = question("unknown");
+// otherQuestion("Cutie");
+
+// question("agent")("Cutie");
+
+
+
 // *************************
-// Functions returning functions
+// IIFE
 // ************************************
 
-function question(job){
-    if (job === "baby") {
-        return function(name) {
-            console.log(name + " is a baby.");
-        }
-    } else if (job === "agent") {
-        return function(name) {
-            console.log(name + " is super cool.");
-        }
-    } else {
-        return function(name) {
-            console.log(name + " is rich.");
-        }
-    }
+function game() {
+    var score = Math.random() * 10;
+    console.log(score >= 5);
 }
+game();
 
-// get the returning function and use it
-var agentQuestion = question("baby");
-agentQuestion("Cutie");
-
-var otherQuestion = question("unknown");
-otherQuestion("Cutie");
-
-question("agent")("Cutie");
+// better way to do this
+// achieve data privacy 
+(function() {
+    var score2 = Math.random() * 10;
+    console.log(score2 >= 5);
+})();
