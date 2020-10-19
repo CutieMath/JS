@@ -101,46 +101,76 @@
 // // when use a = primitive: a copy of new object is created
 
 
+// // *************************
+// // passing function as arguments
+// // ************************************
+
+// var years = [1990, 1965, 1966, 2005, 1999, 2015];
+
+// // generic function!!! 
+// function arrayCalc(array, fn) {
+//     var resultArr = [];
+//     for(var i = 0; i < array.length; i ++){
+//         resultArr.push(fn(array[i]));
+//     }
+//     return resultArr;
+// }
+
+// function calcAge(element){
+//     return new Date().getFullYear() - element;
+// }
+
+// function isFullAge(element){
+//     return element >= 18;
+// }
+
+// // only applicable for people between 18 to 81
+// function maxHeartRate(element){
+//     if(element < 18 || element > 81){
+//         return -1;
+//     }else {
+//         return Math.round(206.9 - (0.67 * element));
+//     }
+// }
+
+// console.log("First Function_________");
+// var resultArr = arrayCalc(years, calcAge);
+// console.log(resultArr);
+
+// console.log("Second Function_________");
+// var fullAgeArr = arrayCalc(resultArr, isFullAge);
+// console.log(fullAgeArr);
+
+// console.log("Third Function_________");
+// var maxHeartRate = arrayCalc(resultArr, maxHeartRate);
+// console.log(maxHeartRate);
+
+
 // *************************
-// passing function as arguments
+// Functions returning functions
 // ************************************
 
-var years = [1990, 1965, 1966, 2005, 1999, 2015];
-
-// generic function!!! 
-function arrayCalc(array, fn) {
-    var resultArr = [];
-    for(var i = 0; i < array.length; i ++){
-        resultArr.push(fn(array[i]));
-    }
-    return resultArr;
-}
-
-function calcAge(element){
-    return new Date().getFullYear() - element;
-}
-
-function isFullAge(element){
-    return element >= 18;
-}
-
-// only applicable for people between 18 to 81
-function maxHeartRate(element){
-    if(element < 18 || element > 81){
-        return -1;
-    }else {
-        return Math.round(206.9 - (0.67 * element));
+function question(job){
+    if (job === "baby") {
+        return function(name) {
+            console.log(name + " is a baby.");
+        }
+    } else if (job === "agent") {
+        return function(name) {
+            console.log(name + " is super cool.");
+        }
+    } else {
+        return function(name) {
+            console.log(name + " is rich.");
+        }
     }
 }
 
-console.log("First Function_________");
-var resultArr = arrayCalc(years, calcAge);
-console.log(resultArr);
+// get the returning function and use it
+var agentQuestion = question("baby");
+agentQuestion("Cutie");
 
-console.log("Second Function_________");
-var fullAgeArr = arrayCalc(resultArr, isFullAge);
-console.log(fullAgeArr);
+var otherQuestion = question("unknown");
+otherQuestion("Cutie");
 
-console.log("Third Function_________");
-var maxHeartRate = arrayCalc(resultArr, maxHeartRate);
-console.log(maxHeartRate);
+question("agent")("Cutie");
