@@ -102,11 +102,12 @@
 
 
 // *************************
-// Functions within functions 
+// passing function as arguments
 // ************************************
 
 var years = [1990, 1965, 1966, 2005, 1999, 2015];
 
+// generic function!!! 
 function arrayCalc(array, fn) {
     var resultArr = [];
     for(var i = 0; i < array.length; i ++){
