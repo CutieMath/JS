@@ -180,19 +180,46 @@
 
 
 
+// // *************************
+// // IIFE
+// // ************************************
+
+// function game() {
+//     var score = Math.random() * 10;
+//     console.log(score >= 5);
+// }
+// game();
+
+// // better way to do this
+// // achieve data privacy 
+// (function() {
+//     var score2 = Math.random() * 10;
+//     console.log(score2 >= 5);
+// })();
+
+
+
 // *************************
-// IIFE
+// Closures
 // ************************************
 
-function game() {
-    var score = Math.random() * 10;
-    console.log(score >= 5);
+function calcMoney(retirementAge){
+    var a = ' years left until retirement.';
+    var b = ' dollars in investment.';
+    // the inner function can still use a, b, and retirementAge
+    // even after the outer function is returned
+    // Becasue the variable objects are still in the memory!!!
+    return function(yearOfBirth, investment){
+        const annualRate = .1;
+        const n = 1;
+        const age = new Date().getFullYear() - yearOfBirth;
+        const yearsLeft = retirementAge - age;
+        var money = investment * (Math.pow((1+(annualRate / n)), (n * yearsLeft)));
+        money = Math.floor(money);
+        console.log(yearsLeft + a);
+        console.log(money.toLocaleString() + b);
+    }
 }
-game();
 
-// better way to do this
-// achieve data privacy 
-(function() {
-    var score2 = Math.random() * 10;
-    console.log(score2 >= 5);
-})();
+//calcMoney(55)(1991, 1000000);
+calcMoney(65)(1991, 1000000);
