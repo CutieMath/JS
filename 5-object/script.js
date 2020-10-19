@@ -220,6 +220,26 @@ function calcMoney(retirementAge){
         console.log(money.toLocaleString() + b);
     }
 }
-
 //calcMoney(55)(1991, 1000000);
 calcMoney(65)(1991, 1000000);
+
+
+// ***************
+// coding challange:
+// JS closure for job questions
+
+function question2(job){
+    a = " is a baby.";
+    b = " is super cool.";
+    c = " is rich.";
+    return function(name){
+        if (job === "baby") { 
+            console.log(name + a);
+        } else if (job === "agent") {
+            console.log(name + b);
+        } else {
+            console.log(name + c);
+        }
+    }
+}
+question2(undefined)("Cutie");
