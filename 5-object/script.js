@@ -246,72 +246,125 @@
 
 
 
+// // *************************
+// // Call, apply and bind
+// // ************************************
+
+// var baby = {
+//     name: "Baby", 
+//     age: 29,
+//     occupation: "Agent",
+//     presentation: function(style, timeOfDay) {
+//         if(style === "formal") {
+//             console.log("Good " + timeOfDay + ", I'm " + this.name + ". My occupation is " + this.occupation + ".");
+//         } else if (style === 'friendly') {
+//             console.log("yummy! It's " + timeOfDay + ", happy x" + " I'm " + this.name + "! My occupation is " + this.occupation + "!");
+//         }
+//     }
+// };
+
+// baby.presentation("formal", "evening");
+// baby.presentation("friendly", "morning");
+
+// // method borrowing
+// // 1. call functon 
+// var cutie = {
+//     name: "Cutie", 
+//     age: 30, 
+//     occupation: "Secret service"
+// };
+// baby.presentation.call(cutie, "friendly", "evening");
+
+
+// // 3. apply function (function expect array)
+// // baby.presentation.apply(cutie, ["friendly", "evening"]);
+
+
+// // 2. bind function 
+// // generate a copy of the function
+// // will always be the 'friendly' version as specifid!! 😍
+// var babyCopy = baby.presentation.bind(baby, "friendly");
+// babyCopy("afternoon");
+// babyCopy("holiday");
+
+// var babyCopyFormal = baby.presentation.bind(baby, "formal");
+// babyCopyFormal("morning, sir");
+// babyCopyFormal("morning, major");
+
+
+// // one more example
+// var years2 = [1990, 1999, 1966, 2005, 1999, 2015];
+// function arrayCalc2(array, fn) {
+//     var resultArr = [];
+//     for(var i = 0; i < array.length; i ++){
+//         resultArr.push(fn(array[i]));
+//     }
+//     return resultArr;
+// }
+// function calcAge2(element){
+//     return new Date().getFullYear() - element;
+// }
+// function isFullAge2(limit, element){
+//     return element >= limit;
+// }
+// // get all ages
+// var ages = arrayCalc2(years2, calcAge2);
+// // use binding
+// var fullJapan = arrayCalc2(ages, isFullAge2.bind(this, 18));
+// console.log(ages);
+// console.log(fullJapan);
+
+
+
 // *************************
-// Call, apply and bind
+// Coding Challange! <3
 // ************************************
 
-var baby = {
-    name: "Baby", 
-    age: 29,
-    occupation: "Agent",
-    presentation: function(style, timeOfDay) {
-        if(style === "formal") {
-            console.log("Good " + timeOfDay + ", I'm " + this.name + ". My occupation is " + this.occupation + ".");
-        } else if (style === 'friendly') {
-            console.log("yummy! It's " + timeOfDay + ", happy x" + " I'm " + this.name + "! My occupation is " + this.occupation + "!");
+// Build a quiz game in the console x
+
+const Question = function(question, options, answer){
+    this.question = question,
+    this.options = options,
+    this.answer = answer,
+    this.print = function(){
+        console.log(this.question);
+        for(var i = 0; i < this.options.length; i ++){
+            console.log(this.options[i]);
+        }
+        var realAnswer = this.answer;
+        return function(){
+            var userAnswer = prompt("Select from 0, 1, 2");
+            if(userAnswer  === "exit"){
+                isRunning = false;
+            }else if(userAnswer === realAnswer){
+                score += 1;
+                console.log("Your answer is correct!!! Your score is " + score);
+                console.log("__________________________________________");
+            } else {
+                console.log("Wrong answer, try again! Your score is " + score);
+                console.log("__________________________________________");
+            }
         }
     }
-};
-
-baby.presentation("formal", "evening");
-baby.presentation("friendly", "morning");
-
-// method borrowing
-// 1. call functon 
-var cutie = {
-    name: "Cutie", 
-    age: 30, 
-    occupation: "Secret service"
-};
-baby.presentation.call(cutie, "friendly", "evening");
-
-
-// 3. apply function (function expect array)
-// baby.presentation.apply(cutie, ["friendly", "evening"]);
-
-
-// 2. bind function 
-// generate a copy of the function
-// will always be the 'friendly' version as specifid!! 😍
-var babyCopy = baby.presentation.bind(baby, "friendly");
-babyCopy("afternoon");
-babyCopy("holiday");
-
-var babyCopyFormal = baby.presentation.bind(baby, "formal");
-babyCopyFormal("morning, sir");
-babyCopyFormal("morning, major");
-
-
-// one more example
-var years2 = [1990, 1999, 1966, 2005, 1999, 2015];
-function arrayCalc2(array, fn) {
-    var resultArr = [];
-    for(var i = 0; i < array.length; i ++){
-        resultArr.push(fn(array[i]));
-    }
-    return resultArr;
 }
-function calcAge2(element){
-    return new Date().getFullYear() - element;
+
+// create questions repository
+const q1 = new Question("Are you baby?", ["0. Yes, I'm baby inside out", "1. No", "2. I don't know"], "0");
+const q2 = new Question("Are you cutie?", ["0. Yes, I'm a little cutie", "1. No", "2. I'm not sure"], "0");
+const q3 = new Question("Are you bright?", ["0. Very", "1. No", "2. I can't tell"], "0");
+var questionArray = [];
+questionArray.push(q1, q2, q3);
+
+// select questions and run the game
+var score = 0;
+var isRunning = true;
+while(isRunning) {
+    const q_index = Math.floor(Math.random() * questionArray.length);
+    questionArray[q_index].print()(score);
 }
-function isFullAge2(limit, element){
-    return element >= limit;
-}
-// get all ages
-var ages = arrayCalc2(years2, calcAge2);
-// use binding
-var fullJapan = arrayCalc2(ages, isFullAge2.bind(this, 18));
-console.log(ages);
-console.log(fullJapan);
+
+
+
+
 
 
