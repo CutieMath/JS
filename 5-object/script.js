@@ -360,7 +360,7 @@ var score = 0;
 var isRunning = true;
 while(isRunning) {
     const q_index = Math.floor(Math.random() * questionArray.length);
-    questionArray[q_index].print()(score);
+    questionArray[q_index].print()();
 }
 
 
