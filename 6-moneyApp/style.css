@@ -15,12 +15,13 @@
 }
 
 body {
-    color: #555;
-    font-family: Open Sans;
+    color: #444;
+    font-family: 'Commissioner', sans-serif;
     font-size: 16px;
     position: relative;
     height: 100vh;
-    font-weight: 400;
+    font-weight: 600;
+    background-color: #FEC8D8;
 }
 
 .right { float: right; }
@@ -32,8 +33,8 @@ body {
 **********************************************/
 
 .top {
-    height: 40vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url(back.png);
+    height: 55.5vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(back.png);
     background-size: cover;
     background-position: center;
     position: relative;
@@ -71,11 +72,13 @@ body {
 
 .budget__income {
     margin-bottom: 10px;
-    background-color: #28B9B5;
+    background-color: #D291BC;
+    border-radius: 40px;
 }
 
 .budget__expenses {
-    background-color: #FF5049;
+    background-color: #E0BBE4;
+    border-radius: 40px;
 }
 
 .budget__income--text,
@@ -114,9 +117,8 @@ body {
 
 /***** FORM *****/
 .add {
-    padding: 14px;
-    border-bottom: 1px solid #e7e7e7;
-    background-color: #f7f7f7;
+    padding: 16px;
+    background-color: #957DAD;
 }
 
 .add__container {
@@ -126,7 +128,7 @@ body {
 
 .add__type {
     width: 55px;
-    border: 1px solid #e7e7e7;
+    border: 2px solid #fff;
     height: 44px;
     font-size: 18px;
     color: inherit;
@@ -134,11 +136,12 @@ body {
     margin-right: 10px;
     font-weight: 300;
     transition: border 0.3s;
+    border-radius: 5px;
 }
 
 .add__description,
 .add__value {
-    border: 1px solid #e7e7e7;
+    border: 2px solid #fff;
     background-color: #fff;
     color: inherit;
     font-family: inherit;
@@ -154,9 +157,10 @@ body {
 
 .add__btn {
     font-size: 35px;
+    font-weight: 600;
     background: none;
     border: none;
-    color: #28B9B5;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;
@@ -165,12 +169,14 @@ body {
 }
 
 .add__btn:active { transform: translateY(2px); }
+.add__btn:hover { color: #E0BBE4; }
+
 
 .add__type:focus,
 .add__description:focus,
 .add__value:focus {
     outline: none;
-    border: 1px solid #28B9B5;
+    background-color: #E0BBE4;
 }
 
 .add__btn:focus { outline: none; }
@@ -199,8 +205,8 @@ h2 {
     margin-bottom: 15px;
 }
 
-.icome__title { color: #28B9B5; }
-.expenses__title { color: #FF5049; }
+.icome__title { color: #fff; }
+.expenses__title { color: #fff; }
 
 .item {
     padding: 13px;
@@ -233,7 +239,7 @@ h2 {
 
 .income .item__value,
 .income .item__delete--btn {
-    color: #28B9B5;
+    color: #D291BC;
 }
 
 .expenses .item__value,
