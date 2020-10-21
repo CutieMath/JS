@@ -3,7 +3,7 @@ Dive deeper into JS ❤️
   
 **1. Pig Game**  
 Game Rules:  
-(1) Two players, play in rounds.   
+(1) Two players, play in rounds. Press ROLL to roll dice, press HOLD to add into score. Next player after HOLD is pressed.        
 (2) Rolls a 1, lost all scores, next player.   
 (3) First reach 20 points wins.   
 https://cutiemath.github.io/JS/3-DOM/index.html  
