@@ -12,7 +12,10 @@ https://cutiemath.github.io/JS/3-DOM/index.html
 Same Rules as above. Also add:  
 (1) Custom winning scores.  
 (2) Rolls two 6 in a roll on first dice, lost all scores, next player.   
-https://cutiemath.github.io/JS/4-DOMChallange/index.html  
+https://cutiemath.github.io/JS/4-DOMChallange/index.html   
+  
+**3. the Money App (In progress)**  
+https://cutiemath.github.io/JS/6-moneyApp/index.html   
    
    
    
