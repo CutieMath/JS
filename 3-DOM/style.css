@@ -87,9 +87,10 @@ body {
 .player-current-box {
     background-color: #ffcad4;
     color: #fff;
-    width: 40%;
+    width: 70%;
+    height: 30%;
     margin: 0 auto;
-    padding: 12px;
+    padding: 1.3rem;
     text-align: center;
     border-radius: 15px;
 }
@@ -97,12 +98,12 @@ body {
 .player-current-label {
     text-transform: uppercase;
     margin-bottom: 10px;
-    font-size: 12px;
-    color: #222;
+    font-size: 1rem;
+    color: #9d8189;
 }
 
 .player-current-score {
-    font-size: 30px;
+    font-size: 3rem;
 }
 
 button {
@@ -119,10 +120,24 @@ button {
     cursor: pointer;
     font-weight: 300;
     transition: background-color 0.3s, color 0.3s;
+
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+
+    padding: 1rem 0.7rem;
+    border-radius: 50rem;
+    box-shadow: 0 1.5rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 
-button:hover { font-weight: 600; }
-button:hover i { margin-right: 20px; }
+button:hover { 
+    background-color: #f4acb7;
+}
+
+button:active {
+    transform: translate(-50%, 3px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
 
 button:focus {
     outline: none;
@@ -140,8 +155,8 @@ i {
 }
 
 .btn-new { top: 45px;}
-.btn-roll { top: 403px;}
-.btn-hold { top: 467px;}
+.btn-roll { top: 400px;}
+.btn-hold { top: 470px;}
 
 .dice {
     position: absolute;
