@@ -137,7 +137,7 @@ button:hover {
 button:active {
     transform: translate(-50%, 3px);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  }
+}
 
 button:focus {
     outline: none;

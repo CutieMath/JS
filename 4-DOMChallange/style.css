@@ -219,10 +219,24 @@ button {
     cursor: pointer;
     font-weight: 300;
     transition: background-color 0.3s, color 0.3s;
+
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+
+    padding: 1rem 0.7rem;
+    border-radius: 50rem;
+    box-shadow: 0 1.5rem 1.5rem rgba(0, 0, 0, 0.1);
 }
 
-button:hover { font-weight: 600; }
-button:hover i { margin-right: 20px; }
+button:hover { 
+  background-color: #f4acb7;
+}
+
+button:active {
+  transform: translate(-50%, 3px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
 
 button:focus {
     outline: none;
@@ -239,14 +253,9 @@ i {
     transition: margin 0.3s;
 }
 
-.btn-okie { 
-  padding-top: 5px;
-
-  color: white;
-}
 .btn-new { top: 45px;}
-.btn-roll { top: 403px;}
-.btn-hold { top: 467px;}
+.btn-roll { top: 400px;}
+.btn-hold { top: 470px;}
 
 .dice1 {
     position: absolute;
