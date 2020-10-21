@@ -321,39 +321,42 @@
 // ************************************
 
 // Build a quiz game in the console x
+// Use this function to include everything in, so it doesn't interfere with other codes
+(function(){
 
-const Question = function(question, options, answer){
+Question = function(question, options, answer){
     this.question = question,
     this.options = options,
-    this.answer = answer,
-    this.print = function(){
-        console.log(this.question);
-        for(var i = 0; i < this.options.length; i ++){
-            console.log(this.options[i]);
-        }
-        var realAnswer = this.answer;
-        return function(){
-            var userAnswer = prompt("Select from 0, 1, 2");
-            if(userAnswer  === "exit"){
-                isRunning = false;
-            }else if(userAnswer === realAnswer){
-                score += 1;
-                console.log("Your answer is correct!!! Your score is " + score);
-                console.log("__________________________________________");
-            } else {
-                console.log("Wrong answer, try again! Your score is " + score);
-                console.log("__________________________________________");
-            }
-        }
-    }
+    this.answer = answer
 }
+
+// create the method outside the object so they don't have to attach to this method.
+Question.prototype.print = function(){
+    console.log(this.question);
+    for(var i = 0; i < this.options.length; i ++){
+        console.log(this.options[i]);
+    };
+    var realAnswer = this.answer;
+    return function(){
+        var userAnswer = prompt("Select from 0, 1, 2");
+        if(userAnswer  === "exit"){
+            isRunning = false;
+        }else if(userAnswer === realAnswer){
+            score += 1;
+            console.log("Your answer is correct!!! Your score is " + score + ". Type 'exit' to exit x");
+            console.log("__________________________________________");
+        } else {
+            console.log("Wrong answer, try again! Your score is " + score  + ". Type 'exit' to exit x");
+            console.log("__________________________________________");
+        }
+    };
+};
 
 // create questions repository
 const q1 = new Question("Are you baby?", ["0. Yes, I'm baby inside out", "1. No", "2. I don't know"], "0");
 const q2 = new Question("Are you cutie?", ["0. Yes, I'm a little cutie", "1. No", "2. I'm not sure"], "0");
 const q3 = new Question("Are you bright?", ["0. Very", "1. No", "2. I can't tell"], "0");
-var questionArray = [];
-questionArray.push(q1, q2, q3);
+var questionArray = [q1, q2, q3];
 
 // select questions and run the game
 var score = 0;
@@ -363,6 +366,7 @@ while(isRunning) {
     questionArray[q_index].print()();
 }
 
+})();
 
 
 
