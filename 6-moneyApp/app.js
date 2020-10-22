@@ -57,7 +57,21 @@ var UIController = (function(){
 // *****************
 var controller = (function(moneyCtrl, UICtrl){
 
-    var UIDOM = UIController.getDOMstrings();
+    // organise event listener
+    var setupEventListeners = function(){
+
+        var UIDOM = UIController.getDOMstrings();
+        
+        // 1. Add event listener for the button
+        document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
+
+        // 2. Add event listener for Enter key!
+        document.addEventListener('keypress', function(event) {
+            if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
+                ctrlAddItem();
+            }
+        });
+    };
 
     // Use a function for both key events
     var ctrlAddItem = function(){
@@ -75,19 +89,17 @@ var controller = (function(moneyCtrl, UICtrl){
 
     };
 
-    // 1. Add event listener for the button
-    document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
-
-    // 2. Add event listener for Enter key!
-    document.addEventListener('keypress', function(event) {
-        if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
-            ctrlAddItem();
+    return {
+        init: function(){
+            setupEventListeners();
         }
-    });
-
-
+    };
 
 
 })(moneyController, UIController);
 
 
+// *****************
+// Start the app!!
+// *****************
+controller.init();
