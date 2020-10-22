@@ -11,6 +11,30 @@
 // *****************
 var moneyController = (function(){
     
+    // Create objects for Income and Expenses
+    var Expense = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+    
+    var Income = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    // Create data structures
+    var data = {
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+    }
     
 })();
 
@@ -66,11 +90,11 @@ var controller = (function(moneyCtrl, UICtrl){
         document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
 
         // 2. Add event listener for Enter key!
-        document.addEventListener('keypress', function(event) {
-            if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
-                ctrlAddItem();
-            }
-        });
+        // document.addEventListener('keypress', function(event) {
+        //     if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
+        //         ctrlAddItem();
+        //     }
+        // });
     };
 
     // Use a function for both key events
