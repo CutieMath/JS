@@ -181,7 +181,7 @@ body {
 
 .add__btn:focus { 
     outline: none; 
-    background-color: #E0BBE4;
+    color: #E0BBE4;
 }
 
 /***** LISTS *****/
@@ -208,15 +208,21 @@ h2 {
     margin-bottom: 15px;
 }
 
-.icome__title { color: #fff; }
-.expenses__title { color: #fff; }
+.icome__title { 
+    color: #fff; 
+    font-weight: 700;
+}
+.expenses__title { 
+    color: #fff; 
+    font-weight: 700;
+}
 
 .item {
     padding: 13px;
-    border-bottom: 1px solid #e7e7e7;
+    border-bottom: 2px solid #fff;
 }
 
-.item:first-child { border-top: 1px solid #e7e7e7; }
+.item:first-child { border-top: 2px solid #fff; }
 .item:nth-child(even) { background-color: #f7f7f7; }
 
 .item__description {

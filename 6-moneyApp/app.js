@@ -12,16 +12,16 @@
 var moneyController = (function(){
     
     // Create objects for Income and Expenses
-    var Expense = function(id, description, value) {
+    var Expense = function(id, description, moneyAmount) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.moneyAmount = moneyAmount;
     };
     
-    var Income = function(id, description, value) {
+    var Income = function(id, description, moneyAmount) {
         this.id = id;
         this.description = description;
-        this.value = value;
+        this.moneyAmount = moneyAmount;
     };
 
     // Create data structures (invisible!)
@@ -37,7 +37,7 @@ var moneyController = (function(){
     };
 
     return {
-        addItem: function(type, descrip, val){
+        addItem: function(type, descrip, money){
             var newItem, id;
 
             // id is the last item in the array + 1
@@ -49,9 +49,9 @@ var moneyController = (function(){
 
             // create new objects from user inputs
             if (type === 'exp') {
-                newItem = new Expense(id, descrip, val);
+                newItem = new Expense(id, descrip, money);
             } else if (type === 'inc') {
-                newItem = new Income(id, descrip, val);
+                newItem = new Income(id, descrip, money);
             }
 
             // add into data structure
@@ -82,7 +82,9 @@ var UIController = (function(){
         type: '.add__type',
         description: '.add__description',
         moneyAmount: '.add__value',
-        addButton: '.add__btn'
+        addButton: '.add__btn',
+        incContainer: '.income__list',
+        expContainer: '.expenses__list'
     }
 
 
@@ -96,6 +98,29 @@ var UIController = (function(){
                 description: document.querySelector(DOMstrings.description).value,
                 moneyAmount: document.querySelector(DOMstrings.moneyAmount).value,
             }
+        },
+
+        addListItem : function(object, type) {
+            var html, newHtml, element;
+
+            // create HTML string with placeholder text
+            if(type === 'inc') {
+                element = DOMstrings.incContainer;
+                html = '<div class="item clearfix" id="income-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%moneyAmount%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            } else if(type === 'exp') {
+                element = DOMstrings.expContainer;
+                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%moneyAmount%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            } else {
+                console.log("The type received was: " + type);
+            }
+
+            // replace the placeholder text
+            newHtml = html.replace('%id%', object.id);
+            newHtml = newHtml.replace('%description%', object.description);
+            newHtml = newHtml.replace('%moneyAmount%', parseInt(object.moneyAmount).toLocaleString());
+
+            // insert HTML into DOM
+            document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
         },
 
         getDOMstrings: function(){
@@ -116,7 +141,7 @@ var controller = (function(moneyCtrl, UICtrl){
     // organise event listener
     var setupEventListeners = function(){
 
-        var UIDOM = UIController.getDOMstrings();
+        var UIDOM = UICtrl.getDOMstrings();
         
         // 1. Add event listener for the button
         document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
@@ -134,13 +159,14 @@ var controller = (function(moneyCtrl, UICtrl){
         var inputItem, newAddedItem;
 
         // a. get input data
-        inputItem = UIController.getInput(); 
-        console.log(inputItem.type);
+        inputItem = UICtrl.getInput(); 
+        console.log(inputItem.moneyAmount);
 
         // b. add to the data structure in moneyController
-        newAddedItem = moneyController.addItem(inputItem.type, inputItem.description, inputItem.moneyAmount);
+        newAddedItem = moneyCtrl.addItem(inputItem.type, inputItem.description, inputItem.moneyAmount);
 
         // c. update UI by adding to UIController
+        UICtrl.addListItem(newAddedItem, inputItem.type);
 
         // d. Calculate money in the moneyController
         
