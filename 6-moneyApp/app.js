@@ -24,7 +24,7 @@ var moneyController = (function(){
         this.value = value;
     };
 
-    // Create data structures
+    // Create data structures (invisible!)
     var data = {
         allItems: {
             exp: [],
@@ -41,7 +41,11 @@ var moneyController = (function(){
             var newItem, id;
 
             // id is the last item in the array + 1
-            id = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            if(data.allItems[type].length > 0) {
+                id = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            } else {
+                id = 0;
+            }
 
             // create new objects from user inputs
             if (type === 'exp') {
@@ -55,7 +59,10 @@ var moneyController = (function(){
 
             // return the new element
             return newItem;
+        },
 
+        test: function(){
+            console.log(data);
         }
         
     };
@@ -124,12 +131,14 @@ var controller = (function(moneyCtrl, UICtrl){
 
     // Use a function for both key events
     var ctrlAddItem = function(){
+        var inputItem, newAddedItem;
+
         // a. get input data
-        var inputItem = UIController.getInput(); 
-        console.log(inputItem);
+        inputItem = UIController.getInput(); 
+        console.log(inputItem.type);
 
         // b. add to the data structure in moneyController
-        var newAddedItem = moneyController.addItem(inputItem.type, inputItem.description, inputItem.value);
+        newAddedItem = moneyController.addItem(inputItem.type, inputItem.description, inputItem.moneyAmount);
 
         // c. update UI by adding to UIController
 
