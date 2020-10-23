@@ -34,7 +34,32 @@ var moneyController = (function(){
             exp: 0,
             inc: 0
         }
-    }
+    };
+
+    return {
+        addItem: function(type, descrip, val){
+            var newItem, id;
+
+            // id is the last item in the array + 1
+            id = data.allItems[type][data.allItems[type].length - 1].id + 1;
+
+            // create new objects from user inputs
+            if (type === 'exp') {
+                newItem = new Expense(id, descrip, val);
+            } else if (type === 'inc') {
+                newItem = new Income(id, descrip, val);
+            }
+
+            // add into data structure
+            data.allItems[type].push(newItem);
+
+            // return the new element
+            return newItem;
+
+        }
+        
+    };
+
     
 })();
 
@@ -60,7 +85,7 @@ var UIController = (function(){
         getInput: function(){
             // make the three of them as an object
             return {
-                type: document.querySelector(DOMstrings.type).value, // - or +
+                type: document.querySelector(DOMstrings.type).value, // 'inc' or 'exp'
                 description: document.querySelector(DOMstrings.description).value,
                 moneyAmount: document.querySelector(DOMstrings.moneyAmount).value,
             }
@@ -89,7 +114,7 @@ var controller = (function(moneyCtrl, UICtrl){
         // 1. Add event listener for the button
         document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
 
-        // 2. Add event listener for Enter key!
+        // 2. Add event listener for Enter key! (disabled for now to avoid dups)
         // document.addEventListener('keypress', function(event) {
         //     if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
         //         ctrlAddItem();
@@ -104,6 +129,7 @@ var controller = (function(moneyCtrl, UICtrl){
         console.log(inputItem);
 
         // b. add to the data structure in moneyController
+        var newAddedItem = moneyController.addItem(inputItem.type, inputItem.description, inputItem.value);
 
         // c. update UI by adding to UIController
 
