@@ -24,6 +24,18 @@ var moneyController = (function(){
         this.moneyAmount = moneyAmount;
     };
 
+    var calcTotal = function(type){
+        var sum = 0;
+        data.allItems[type].forEach(function(i){
+            sum += i.moneyAmount;
+        });
+        data.totals[type] = sum;
+    };
+
+    const roundToHundredth = (value) => {
+        return Number(value.toFixed(3));
+      };
+
     // Create data structures (invisible!)
     var data = {
         allItems: {
@@ -33,32 +45,55 @@ var moneyController = (function(){
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budget: 0,
+        percentage: -1
     };
 
+    // accessible methods!
     return {
         addItem: function(type, descrip, money){
             var newItem, id;
-
             // id is the last item in the array + 1
             if(data.allItems[type].length > 0) {
                 id = data.allItems[type][data.allItems[type].length - 1].id + 1;
             } else {
                 id = 0;
             }
-
             // create new objects from user inputs
             if (type === 'exp') {
                 newItem = new Expense(id, descrip, money);
             } else if (type === 'inc') {
                 newItem = new Income(id, descrip, money);
             }
-
             // add into data structure
             data.allItems[type].push(newItem);
-
             // return the new element
             return newItem;
+        },
+
+        calcMoney: function(){
+            // total income and exp
+            calcTotal('exp');
+            calcTotal('inc');
+            // calc budget
+            data.budget = data.totals.inc - data.totals.exp; 
+            // calc percentage, round to the nearest hundredths
+            if (data.totals.inc !== 0) {
+                data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+                console.log(data.percentage);
+            } else {
+                data.percentage = -1;
+            }
+        },
+
+        getMoney: function(){
+            return {
+                budget: data.budget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            }
         },
 
         test: function(){
@@ -84,7 +119,11 @@ var UIController = (function(){
         moneyAmount: '.add__value',
         addButton: '.add__btn',
         incContainer: '.income__list',
-        expContainer: '.expenses__list'
+        expContainer: '.expenses__list',
+        budgetUI: '.budget__value',
+        incUI: '.budget__income--value',
+        expUI: '.budget__expenses--value',
+        expPercen: '.budget__expenses--percentage'
     }
 
 
@@ -96,7 +135,7 @@ var UIController = (function(){
             return {
                 type: document.querySelector(DOMstrings.type).value, // 'inc' or 'exp'
                 description: document.querySelector(DOMstrings.description).value,
-                moneyAmount: document.querySelector(DOMstrings.moneyAmount).value,
+                moneyAmount: parseFloat(document.querySelector(DOMstrings.moneyAmount).value),
             }
         },
 
@@ -117,10 +156,33 @@ var UIController = (function(){
             // replace the placeholder text
             newHtml = html.replace('%id%', object.id);
             newHtml = newHtml.replace('%description%', object.description);
-            newHtml = newHtml.replace('%moneyAmount%', parseInt(object.moneyAmount).toLocaleString());
+            newHtml = newHtml.replace('%moneyAmount%', object.moneyAmount.toLocaleString());
 
             // insert HTML into DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        clearFields: function(){
+            var fields, fieldsArray;
+            fields = document.querySelectorAll(DOMstrings.type + "," + DOMstrings.description + "," + DOMstrings.moneyAmount);
+            // Convert into array
+            fieldsArray = Array.prototype.slice.call(fields);
+            fieldsArray.forEach(function(fieldsValue){
+                fieldsValue.value = "";
+            });
+            fieldsArray[0].focus();
+        },
+
+        displayBudget: function(obj) {
+            document.querySelector(DOMstrings.budgetUI).textContent = obj.budget.toLocaleString();
+            document.querySelector(DOMstrings.incUI).textContent = obj.totalInc.toLocaleString();
+            document.querySelector(DOMstrings.expUI).textContent = obj.totalExp.toLocaleString();
+
+            if (obj.percentage >= 0){
+                document.querySelector(DOMstrings.expPercen).textContent = obj.percentage + "%";
+            } else {
+                document.querySelector(DOMstrings.expPercen).textContent = "---";
+            }
         },
 
         getDOMstrings: function(){
@@ -146,7 +208,7 @@ var controller = (function(moneyCtrl, UICtrl){
         // 1. Add event listener for the button
         document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
 
-        // 2. Add event listener for Enter key! (disabled for now to avoid dups)
+        // 2. Add event listener for Enter key! (disabled        to avoid dups)
         // document.addEventListener('keypress', function(event) {
         //     if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
         //         ctrlAddItem();
@@ -160,22 +222,47 @@ var controller = (function(moneyCtrl, UICtrl){
 
         // a. get input data
         inputItem = UICtrl.getInput(); 
-        console.log(inputItem.moneyAmount);
 
-        // b. add to the data structure in moneyController
-        newAddedItem = moneyCtrl.addItem(inputItem.type, inputItem.description, inputItem.moneyAmount);
+        if( inputItem.type !== "" && inputItem.description !== "" && !isNaN(inputItem.moneyAmount) && inputItem.moneyAmount >= 0) {
+            // b. add to the data structure in moneyController
+            newAddedItem = moneyCtrl.addItem(inputItem.type, inputItem.description, inputItem.moneyAmount);
 
-        // c. update UI by adding to UIController
-        UICtrl.addListItem(newAddedItem, inputItem.type);
+            // c. update UI by adding to UIController
+            // clear the inut fields
+            UICtrl.addListItem(newAddedItem, inputItem.type);
+            UICtrl.clearFields();
 
-        // d. Calculate money in the moneyController
+            // d. calculatge and update global money
+            updateMoney();
+
+            // e. update Global UI
+        } else {
+            alert("Please input valid money x");
+        }
+    };
+
+    var updateMoney = function(){
+        var moneyObj;
+
+        // 1. Calculate money in the moneyController
+        moneyCtrl.calcMoney();
+
+        // 2. return the budget
+        moneyObj = moneyCtrl.getMoney();
         
-        // e. update globale UI
+        // 3. update globale UI
+        UICtrl.displayBudget(moneyObj);
 
     };
 
     return {
         init: function(){
+            console.log('Application started x');
+            UICtrl.displayBudget({
+                budget: 5000000,
+                totalInc: 5000000,
+                totalExp: 0,
+                percentage: 0});
             setupEventListeners();
         }
     };
