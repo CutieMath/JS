@@ -32,9 +32,6 @@ var moneyController = (function(){
         data.totals[type] = sum;
     };
 
-    const roundToHundredth = (value) => {
-        return Number(value.toFixed(3));
-      };
 
     // Create data structures (invisible!)
     var data = {
@@ -49,6 +46,7 @@ var moneyController = (function(){
         budget: 0,
         percentage: -1
     };
+
 
     // accessible methods!
     return {
@@ -70,6 +68,22 @@ var moneyController = (function(){
             data.allItems[type].push(newItem);
             // return the new element
             return newItem;
+        },
+
+        deleteItem: function(type, id){
+            // use map function to select the element
+            var idsArr, index;
+            // this returns an array of all the available ids
+            idsArr = data.allItems[type].map(function(i) {
+                return i.id;
+            });
+            // get the index of that id
+            index = idsArr.indexOf(id);
+
+            // delete it!!
+            if(index !== -1) {
+                data.allItems[type].splice(index, 1);
+            }
         },
 
         calcMoney: function(){
@@ -123,7 +137,8 @@ var UIController = (function(){
         budgetUI: '.budget__value',
         incUI: '.budget__income--value',
         expUI: '.budget__expenses--value',
-        expPercen: '.budget__expenses--percentage'
+        expPercen: '.budget__expenses--percentage',
+        container: '.container'
     }
 
 
@@ -145,10 +160,10 @@ var UIController = (function(){
             // create HTML string with placeholder text
             if(type === 'inc') {
                 element = DOMstrings.incContainer;
-                html = '<div class="item clearfix" id="income-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%moneyAmount%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%moneyAmount%</div><div class="item__delete"><button class="item__delete--btn"><i class="fas fa-times-circle"></i></button></div></div></div>';
             } else if(type === 'exp') {
                 element = DOMstrings.expContainer;
-                html = '<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%moneyAmount%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%moneyAmount%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="fas fa-times-circle"></i></button></div></div></div>';
             } else {
                 console.log("The type received was: " + type);
             }
@@ -214,6 +229,10 @@ var controller = (function(moneyCtrl, UICtrl){
         //         ctrlAddItem();
         //     }
         // });
+
+        // 3. add eventlistener to the delete button
+        // Use event bubbles
+        document.querySelector(UIDOM.container).addEventListener('click', ctrlDeleteItem);
     };
 
     // Use a function for both key events
@@ -241,6 +260,7 @@ var controller = (function(moneyCtrl, UICtrl){
         }
     };
 
+
     var updateMoney = function(){
         var moneyObj;
 
@@ -255,12 +275,37 @@ var controller = (function(moneyCtrl, UICtrl){
 
     };
 
+
+    var ctrlDeleteItem = function(event){
+        var itemID, splitArr, type, ID;
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+        console.log(itemID);
+        if (itemID) {
+            // splic: inc-1
+            splitArr = itemID.split('-');
+            type = splitArr[0];
+            ID = parseInt(splitArr[1]);
+
+            // 1. delete from data structure
+            moneyCtrl.deleteItem(type, ID);
+
+            // 2. delete from UI
+
+
+
+            // 3. update UI
+        }
+
+    };
+
+
+    // publically accessible elements
     return {
         init: function(){
             console.log('Application started x');
             UICtrl.displayBudget({
-                budget: 5000000,
-                totalInc: 5000000,
+                budget: 0,
+                totalInc: 0,
                 totalExp: 0,
                 percentage: 0});
             setupEventListeners();
