@@ -95,7 +95,6 @@ var moneyController = (function(){
             // calc percentage, round to the nearest hundredths
             if (data.totals.inc !== 0) {
                 data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
-                console.log(data.percentage);
             } else {
                 data.percentage = -1;
             }
@@ -175,6 +174,11 @@ var UIController = (function(){
 
             // insert HTML into DOM
             document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+        },
+
+        deleteListItem: function(selectorID){
+            var element = document.getElementById(selectorID);
+            element.parentNode.removeChild(element);
         },
 
         clearFields: function(){
@@ -281,7 +285,7 @@ var controller = (function(moneyCtrl, UICtrl){
         itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
         console.log(itemID);
         if (itemID) {
-            // splic: inc-1
+            // split: inc-1
             splitArr = itemID.split('-');
             type = splitArr[0];
             ID = parseInt(splitArr[1]);
@@ -290,12 +294,11 @@ var controller = (function(moneyCtrl, UICtrl){
             moneyCtrl.deleteItem(type, ID);
 
             // 2. delete from UI
-
-
+            UICtrl.deleteListItem(itemID);
 
             // 3. update UI
+            updateMoney();
         }
-
     };
 
 
