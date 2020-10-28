@@ -141,8 +141,7 @@ var moneyController = (function(){
         }
         
     };
-
-    
+  
 })();
 
 
@@ -164,7 +163,8 @@ var UIController = (function(){
         incUI: '.budget__income--value',
         expUI: '.budget__expenses--value',
         expPercen: '.budget__expenses--percentage',
-        container: '.container'
+        container: '.container',
+        expPctLabel: '.item__percentage'
     }
 
 
@@ -231,6 +231,24 @@ var UIController = (function(){
             }
         },
 
+        displayPcts: function(pctArr){
+            var fields = document.querySelectorAll(DOMstrings.expPctLabel);
+            // get each UI node
+            var nodeListForEach = function(list, callback) {
+                for (var i = 0; i < list.length; i ++){
+                    callback(list[i], i);
+                }
+            };
+            // update them!
+            nodeListForEach(fields, function(element, index) {
+                if(pctArr[index] >= 0) {
+                    element.textContent = pctArr[index] + '%';
+                } else {
+                    element.textContent = '---';
+                }
+            });
+        },
+
         getDOMstrings: function(){
             return DOMstrings;
         }
@@ -276,7 +294,7 @@ var controller = (function(moneyCtrl, UICtrl){
         var pcts = moneyCtrl.getPercentages();
 
         // update UI
-        console.log(pcts);
+        UICtrl.displayPcts(pcts);
     };
 
 
