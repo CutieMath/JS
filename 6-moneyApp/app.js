@@ -16,6 +16,20 @@ var moneyController = (function(){
         this.id = id;
         this.description = description;
         this.moneyAmount = moneyAmount;
+        this.percentage = -1;
+    };
+
+    // add the calculate percentage function
+    Expense.prototype.calcPct = function(totalIncome) {
+        if(totalIncome > 0) {
+            this.percentage = Math.round((this.moneyAmount / totalIncome) * 100);
+        } else {
+            this.percentage = -1;
+        }
+    };
+
+    Expense.prototype.getPct = function() {
+        return this.percentage;
     };
     
     var Income = function(id, description, moneyAmount) {
@@ -98,6 +112,19 @@ var moneyController = (function(){
             } else {
                 data.percentage = -1;
             }
+        },
+
+        calcPercentages: function(){
+            data.allItems.exp.forEach(function(i) {
+                i.calcPct(data.totals.inc);
+            });
+        },
+
+        getPercentages: function(){
+            var allPct = data.allItems.exp.map(function(i){
+                return i.getPct();
+            });
+            return allPct;
         },
 
         getMoney: function(){
@@ -239,6 +266,20 @@ var controller = (function(moneyCtrl, UICtrl){
         document.querySelector(UIDOM.container).addEventListener('click', ctrlDeleteItem);
     };
 
+
+    // update the percentage for each expense
+    var updatePercentage = function(){
+        // calculate percentage
+        moneyCtrl.calcPercentages();
+
+        // read percentages from the budget controller
+        var pcts = moneyCtrl.getPercentages();
+
+        // update UI
+        console.log(pcts);
+    };
+
+
     // Use a function for both key events
     var ctrlAddItem = function(){
         var inputItem, newAddedItem;
@@ -255,10 +296,12 @@ var controller = (function(moneyCtrl, UICtrl){
             UICtrl.addListItem(newAddedItem, inputItem.type);
             UICtrl.clearFields();
 
-            // d. calculatge and update global money
+            // d. calculate and update global money
             updateMoney();
 
-            // e. update Global UI
+            // e. calculate and update percentages
+            updatePercentage();
+
         } else {
             alert("Please input valid money x");
         }
@@ -298,6 +341,9 @@ var controller = (function(moneyCtrl, UICtrl){
 
             // 3. update UI
             updateMoney();
+
+            // 4. update percentage
+            updatePercentage();
         }
     };
 
