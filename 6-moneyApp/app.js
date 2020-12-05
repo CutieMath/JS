@@ -166,7 +166,14 @@ var UIController = (function(){
         container: '.container',
         expPctLabel: '.item__percentage',
         dateLabel: '.budget__title--month'
-    }
+    };
+
+    // function to get each UI node
+    var nodeListForEach = function(list, callback) {
+        for (var i = 0; i < list.length; i ++){
+            callback(list[i], i);
+        }
+    };
 
 
     // Public methods for other Controller
@@ -234,13 +241,8 @@ var UIController = (function(){
 
         displayPcts: function(pctArr){
             var fields = document.querySelectorAll(DOMstrings.expPctLabel);
-            // get each UI node
-            var nodeListForEach = function(list, callback) {
-                for (var i = 0; i < list.length; i ++){
-                    callback(list[i], i);
-                }
-            };
-            // update them!
+
+            // update them! (use the nodeListForEach method)
             nodeListForEach(fields, function(element, index) {
                 if(pctArr[index] >= 0) {
                     element.textContent = pctArr[index] + '%';
@@ -260,9 +262,27 @@ var UIController = (function(){
             document.querySelector(DOMstrings.dateLabel).textContent = months[month - 1] + ', ' + year;
         },
 
+        changedType: function() {
+            var fields = document.querySelectorAll(
+                DOMstrings.type + ',' + 
+                DOMstrings.description + ',' +
+                DOMstrings.moneyAmount
+            );
+
+            // change background color for inputs
+            nodeListForEach(fields, function(current) {
+                current.classList.toggle('exp-bg');
+            });
+
+            // change hover colour for button
+            document.querySelector(DOMstrings.addButton).classList.toggle('exp-btn-bg');
+        },
+
         getDOMstrings: function(){
             return DOMstrings;
         }
+
+
     };
 
 })();
@@ -278,12 +298,13 @@ var controller = (function(moneyCtrl, UICtrl){
     // organise event listener
     var setupEventListeners = function(){
 
+        // get the UI element
         var UIDOM = UICtrl.getDOMstrings();
         
         // 1. Add event listener for the button
         document.querySelector(UIDOM.addButton).addEventListener('click', ctrlAddItem);
 
-        // 2. Add event listener for Enter key! (disabled        to avoid dups)
+        // 2. Add event listener for Enter key! (disabled to avoid dups)
         // document.addEventListener('keypress', function(event) {
         //     if ( event.keyCode === 13 || event.which === 13 || event.key === 13) {
         //         ctrlAddItem();
@@ -293,6 +314,11 @@ var controller = (function(moneyCtrl, UICtrl){
         // 3. add eventlistener to the delete button
         // Use event bubbles
         document.querySelector(UIDOM.container).addEventListener('click', ctrlDeleteItem);
+    
+        // 4. change background color when user click income or expense (use the change event!) 
+        document.querySelector(UIDOM.type).addEventListener('change', UICtrl.changedType);
+
+        
     };
 
 

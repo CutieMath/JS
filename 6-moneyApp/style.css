@@ -28,6 +28,14 @@ body {
 .red { color: #FF5049 !important; }
 .red-focus:focus { border: 1px solid #FF5049 !important; }
 
+.exp-bg:focus {
+    background-color: #E0BBE4 !important;
+}
+
+.exp-btn-bg:hover {
+    color: #E0BBE4 !important; 
+}
+
 /**********************************************
 *** TOP PART
 **********************************************/
@@ -169,14 +177,14 @@ body {
 }
 
 .add__btn:active { transform: translateY(2px); }
-.add__btn:hover { color: #E0BBE4; }
+.add__btn:hover { color: #D291BC; }
 
 
 .add__type:focus,
 .add__description:focus,
 .add__value:focus {
-    outline: none;
-    background-color: #E0BBE4;
+    outline: none; 
+    background-color: #D291BC;
 }
 
 .add__btn:focus { 
