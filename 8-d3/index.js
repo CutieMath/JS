@@ -67,3 +67,9 @@ var xAxisTranslate = svgHeight - 20;
 svg.append("g")
     .attr("transform", "translate(50, " + xAxisTranslate + ")")
     .call(x_axis);
+
+var xAxisTranslate = svgHeight - 20;
+
+svg.append("g")
+    .attr("transform",  "translate(50," + xAxisTranslate + ")")
+    .call(x_axis);
